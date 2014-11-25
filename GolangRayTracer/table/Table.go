@@ -16,23 +16,23 @@ func New(width int, height int) Table {
 	}
 }
 
-func (table *Table) GetWidth() int {
+func (table *Table) Width() int {
 	return table.width
 }
 
-func (table *Table) GetHeight() int {
+func (table *Table) Height() int {
 	return table.height
 }
 
 func (table *Table) Set(row int, column int, value interface{}) {
-	table.data[table.getIndex(row, column)] = value
+	table.data[table.index(row, column)] = value
 }
 
 func (table *Table) Get(row int, column int) interface{} {
-	return table.data[table.getIndex(row, column)]
+	return table.data[table.index(row, column)]
 }
 
-func (table *Table) getIndex(row int, column int) int {
+func (table *Table) index(row int, column int) int {
 	if row >= table.height {
 		panic(fmt.Sprintf("Table::get_index: `row` overflow (%v >= %v)", row, table.height))
 	}
