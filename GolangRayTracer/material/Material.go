@@ -26,7 +26,18 @@ func NewMaterial(color color.ColorRGB) Material {
 	}
 }
 
-type MaterialBuilder struct {
+type MaterialBuilder interface {
+	Color(color color.ColorRGB) MaterialBuilder
+	Diffuse(diffuse float32) MaterialBuilder
+	Specular(specular float32) MaterialBuilder
+	Shininess(shininess int) MaterialBuilder
+	Reflection(reflection float32) MaterialBuilder
+	Refraction(refraction float32) MaterialBuilder
+	RefractiveIndex(refractiveIndex float32) MaterialBuilder
+	ToMaterial() Material
+}
+
+type materialBuilder struct {
 	color           color.ColorRGB
 	diffuse         float32
 	specular        float32
@@ -36,8 +47,8 @@ type MaterialBuilder struct {
 	refractiveIndex float32
 }
 
-func NewMaterialBuilder() MaterialBuilder {
-	return MaterialBuilder{
+func NewBuilder() MaterialBuilder {
+	return &materialBuilder{
 		color:           color.White(),
 		diffuse:         1.0,
 		specular:        0.0,
@@ -48,42 +59,42 @@ func NewMaterialBuilder() MaterialBuilder {
 	}
 }
 
-func (builder *MaterialBuilder) Color(color color.ColorRGB) *MaterialBuilder {
+func (builder *materialBuilder) Color(color color.ColorRGB) MaterialBuilder {
 	builder.color = color
 	return builder
 }
 
-func (builder *MaterialBuilder) Diffuse(diffuse float32) *MaterialBuilder {
+func (builder *materialBuilder) Diffuse(diffuse float32) MaterialBuilder {
 	builder.diffuse = diffuse
 	return builder
 }
 
-func (builder *MaterialBuilder) Specular(specular float32) *MaterialBuilder {
+func (builder *materialBuilder) Specular(specular float32) MaterialBuilder {
 	builder.specular = specular
 	return builder
 }
 
-func (builder *MaterialBuilder) Shininess(shininess int) *MaterialBuilder {
+func (builder *materialBuilder) Shininess(shininess int) MaterialBuilder {
 	builder.shininess = shininess
 	return builder
 }
 
-func (builder *MaterialBuilder) Reflection(reflection float32) *MaterialBuilder {
+func (builder *materialBuilder) Reflection(reflection float32) MaterialBuilder {
 	builder.reflection = reflection
 	return builder
 }
 
-func (builder *MaterialBuilder) Refraction(refraction float32) *MaterialBuilder {
+func (builder *materialBuilder) Refraction(refraction float32) MaterialBuilder {
 	builder.refraction = refraction
 	return builder
 }
 
-func (builder *MaterialBuilder) RefractiveIndex(refractiveIndex float32) *MaterialBuilder {
+func (builder *materialBuilder) RefractiveIndex(refractiveIndex float32) MaterialBuilder {
 	builder.refractiveIndex = refractiveIndex
 	return builder
 }
 
-func (builder MaterialBuilder) ToMaterial() Material {
+func (builder materialBuilder) ToMaterial() Material {
 	return Material{
 		Color:           builder.color,
 		Diffuse:         builder.diffuse,
