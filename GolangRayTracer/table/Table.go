@@ -9,7 +9,11 @@ type Table struct {
 }
 
 func New(width int, height int) Table {
-	return Table{data: make([]interface{}, width*height), width: width, height: height}
+	return Table{
+		data:   make([]interface{}, width*height),
+		width:  width,
+		height: height,
+	}
 }
 
 func (table *Table) GetWidth() int {
