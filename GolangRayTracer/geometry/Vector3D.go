@@ -8,8 +8,6 @@ type Vector3D struct {
 	Z float32
 }
 
-var zero = Vector3D{X: 0.0, Y: 0.0, Z: 0.0}
-
 func NewVector(x float32, y float32, z float32) Vector3D {
 	return Vector3D{
 		X: x,
@@ -35,7 +33,7 @@ func NewVector_FromPoint(point Point3D) Vector3D {
 }
 
 func Zero() Vector3D {
-	return zero
+	return Vector3D{X: 0.0, Y: 0.0, Z: 0.0}
 }
 
 func (vector Vector3D) Magnitude() float32 {

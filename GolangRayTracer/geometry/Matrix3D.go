@@ -6,12 +6,6 @@ type Matrix3D struct {
 	Z Vector3D
 }
 
-var identity = Matrix3D{
-	X: Vector3D{X: 1.0, Y: 0.0, Z: 0.0},
-	Y: Vector3D{X: 0.0, Y: 1.0, Z: 0.0},
-	Z: Vector3D{X: 0.0, Y: 0.0, Z: 1.0},
-}
-
 func NewMatrix(x Vector3D, y Vector3D, z Vector3D) Matrix3D {
 	return Matrix3D{
 		X: x,
@@ -21,7 +15,11 @@ func NewMatrix(x Vector3D, y Vector3D, z Vector3D) Matrix3D {
 }
 
 func Identity() Matrix3D {
-	return identity
+	return Matrix3D{
+		X: Vector3D{X: 1.0, Y: 0.0, Z: 0.0},
+		Y: Vector3D{X: 0.0, Y: 1.0, Z: 0.0},
+		Z: Vector3D{X: 0.0, Y: 0.0, Z: 1.0},
+	}
 }
 
 func (matrix Matrix3D) ToOrthonormalBasis() Matrix3D {

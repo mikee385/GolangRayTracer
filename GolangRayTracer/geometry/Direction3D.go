@@ -6,10 +6,6 @@ type Direction3D struct {
 	direction Vector3D
 }
 
-var unitX = Direction3D{direction: Vector3D{X: 1.0, Y: 0.0, Z: 0.0}}
-var unitY = Direction3D{direction: Vector3D{X: 0.0, Y: 1.0, Z: 0.0}}
-var unitZ = Direction3D{direction: Vector3D{X: 0.0, Y: 0.0, Z: 1.0}}
-
 func NewDirection(x float32, y float32, z float32) Direction3D {
 	return NewDirection_FromVector(NewVector(x, y, z))
 }
@@ -36,15 +32,15 @@ func newDirection_FromNormalizedVector(normalizedVector Vector3D) Direction3D {
 }
 
 func UnitX() Direction3D {
-	return unitX
+	return Direction3D{direction: Vector3D{X: 1.0, Y: 0.0, Z: 0.0}}
 }
 
 func UnitY() Direction3D {
-	return unitY
+	return Direction3D{direction: Vector3D{X: 0.0, Y: 1.0, Z: 0.0}}
 }
 
 func UnitZ() Direction3D {
-	return unitZ
+	return Direction3D{direction: Vector3D{X: 0.0, Y: 0.0, Z: 1.0}}
 }
 
 func (direction Direction3D) ToVector() Vector3D {

@@ -8,8 +8,6 @@ type Point3D struct {
 	Z float32
 }
 
-var origin = Point3D{X: 0.0, Y: 0.0, Z: 0.0}
-
 func NewPoint(x float32, y float32, z float32) Point3D {
 	return Point3D{
 		X: x,
@@ -27,7 +25,7 @@ func NewPoint_FromVector(vector Vector3D) Point3D {
 }
 
 func Origin() Point3D {
-	return origin
+	return Point3D{X: 0.0, Y: 0.0, Z: 0.0}
 }
 
 func (point Point3D) Translate_Dist(direction Direction3D, magnitude float32) Point3D {
