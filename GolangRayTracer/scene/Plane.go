@@ -50,10 +50,10 @@ func (plane Plane) Intersect(ray geometry.Ray3D) (float32, bool) {
 	return t, true
 }
 
-func (plane Plane) Normal() geometry.Direction3D {
+func (plane Plane) Normal(point geometry.Point3D) geometry.Direction3D {
 	return plane.normal
 }
 
-func (plane Plane) Material() material.Material {
+func (plane Plane) Material(point geometry.Point3D) material.Material {
 	return plane.material
 }
