@@ -1,7 +1,7 @@
 package scene
 
 import (
-	"github.com/mikee385/GolangRayTracer/GolangRayTracer/color"
+	"github.com/mikee385/GolangRayTracer/color"
 )
 
 const Bias = 1.0E-9

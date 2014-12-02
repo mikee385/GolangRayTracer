@@ -1,7 +1,7 @@
 package material
 
 import (
-	"github.com/mikee385/GolangRayTracer/GolangRayTracer/color"
+	"github.com/mikee385/GolangRayTracer/color"
 )
 
 type Material struct {

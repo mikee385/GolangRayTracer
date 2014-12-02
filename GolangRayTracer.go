@@ -1,16 +1,19 @@
 package main
 
 import (
-	"github.com/mikee385/GolangRayTracer/GolangRayTracer/color"
-	"github.com/mikee385/GolangRayTracer/GolangRayTracer/geometry"
-	"github.com/mikee385/GolangRayTracer/GolangRayTracer/material"
-	"github.com/mikee385/GolangRayTracer/GolangRayTracer/scene"
-	"github.com/mikee385/GolangRayTracer/GolangRayTracer/table"
+	"github.com/mikee385/GolangRayTracer/color"
+	"github.com/mikee385/GolangRayTracer/geometry"
+	"github.com/mikee385/GolangRayTracer/material"
+	"github.com/mikee385/GolangRayTracer/scene"
+	"github.com/mikee385/GolangRayTracer/table"
 )
 
 var EXAMPLE_TO_RUN = 1
 
 func main() {
+
+	var camera scene.Camera
+	var imageScene scene.Scene
 
 	if EXAMPLE_TO_RUN == 1 {
 		//----------------------------------------------------------------------
@@ -18,7 +21,7 @@ func main() {
 		//----------------------------------------------------------------------
 
 		var backgroundColor = color.New(2.0, 2.0, 2.0)
-		var imageScene = scene.NewScene(backgroundColor, 1.0, 5)
+		imageScene = scene.NewScene(backgroundColor, 1.0, 5)
 
 		var groundSphere = scene.NewSphere(geometry.NewPoint(0.0, -10004.0, 20.0), 10000.0, material.NewBuilder().
 			Color(color.New(0.2, 0.2, 0.2)).
@@ -81,15 +84,14 @@ func main() {
 		var imageWidth = 640
 		var imageHeight = 480
 		var fieldOfView float32 = 30.0
-		var camera = scene.NewCamera_FromFOV(imageWidth, imageHeight, fieldOfView, 1.0, geometry.Origin(), geometry.NewPoint(0.0, 0.0, 1.0))
-		var imageTable = render(&imageScene, &camera)
+		camera = scene.NewCamera_FromFOV(imageWidth, imageHeight, fieldOfView, 1.0, geometry.Origin(), geometry.NewPoint(0.0, 0.0, 1.0))
 
 	} else if EXAMPLE_TO_RUN == 2 {
 		//----------------------------------------------------------------------
 		// flipcode Tutorial, version 1 & version 2
 		//----------------------------------------------------------------------
 
-		var imageScene = scene.NewScene(color.Black(), 1.0, 5)
+		imageScene = scene.NewScene(color.Black(), 1.0, 5)
 
 		var groundPlane = scene.NewPlane_FromDVector(4.4, geometry.NewVector(0.0, 1.0, 0.0), material.NewBuilder().
 			Color(color.New(0.4, 0.3, 0.3)).
@@ -126,15 +128,14 @@ func main() {
 
 		var imageWidth = 800
 		var imageHeight = 600
-		var camera = scene.NewCamera_FromDimensions(imageWidth, imageHeight, 8.0, 6.0, 5.0, geometry.NewPoint(0.0, 0.0, -5.0), geometry.NewPoint(0.0, 0.0, 1.0))
-		var imageTable = render(&imageScene, &camera)
+		camera = scene.NewCamera_FromDimensions(imageWidth, imageHeight, 8.0, 6.0, 5.0, geometry.NewPoint(0.0, 0.0, -5.0), geometry.NewPoint(0.0, 0.0, 1.0))
 
 	} else if EXAMPLE_TO_RUN == 3 {
 		//----------------------------------------------------------------------
 		// flipcode Tutorial, version 3
 		//----------------------------------------------------------------------
 
-		var imageScene = scene.NewScene(color.Black(), 1.0, 5)
+		imageScene = scene.NewScene(color.Black(), 1.0, 5)
 
 		var groundPlane = scene.NewPlane_FromDVector(4.4, geometry.NewVector(0.0, 1.0, 0.0), material.NewBuilder().
 			Color(color.New(0.4, 0.3, 0.3)).
@@ -228,9 +229,10 @@ func main() {
 
 		var imageWidth = 800
 		var imageHeight = 600
-		var camera = scene.NewCamera_FromDimensions(imageWidth, imageHeight, 8.0, 6.0, 5.0, geometry.NewPoint(0.0, 0.0, -5.0), geometry.NewPoint(0.0, 0.0, 1.0))
-		var imageTable = render(&imageScene, &camera)
+		camera = scene.NewCamera_FromDimensions(imageWidth, imageHeight, 8.0, 6.0, 5.0, geometry.NewPoint(0.0, 0.0, -5.0), geometry.NewPoint(0.0, 0.0, 1.0))
 	}
+
+	var _ = render(&imageScene, &camera)
 }
 
 func render(imageScene *scene.Scene, camera *scene.Camera) *table.Table {

@@ -1,9 +1,9 @@
 package scene
 
 import (
-	"github.com/mikee385/GolangRayTracer/GolangRayTracer/color"
-	"github.com/mikee385/GolangRayTracer/GolangRayTracer/geometry"
-	"github.com/mikee385/GolangRayTracer/GolangRayTracer/material"
+	"github.com/mikee385/GolangRayTracer/color"
+	"github.com/mikee385/GolangRayTracer/geometry"
+	"github.com/mikee385/GolangRayTracer/material"
 )
 
 type SceneLight struct {

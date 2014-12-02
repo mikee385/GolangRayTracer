@@ -2,8 +2,8 @@ package scene
 
 import (
 	"fmt"
-	"github.com/mikee385/GolangRayTracer/GolangRayTracer/geometry"
-	"github.com/mikee385/GolangRayTracer/GolangRayTracer/table"
+	"github.com/mikee385/GolangRayTracer/geometry"
+	"github.com/mikee385/GolangRayTracer/table"
 	"math"
 )
 
