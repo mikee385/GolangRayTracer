@@ -16,6 +16,12 @@ func New(width int, height int) Table {
 	}
 }
 
+func (table *Table) Fill(value interface{}) {
+	for i := range table.data {
+		table.data[i] = value
+	}
+}
+
 func (table *Table) Width() int {
 	return table.width
 }
