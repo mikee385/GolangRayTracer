@@ -2,6 +2,7 @@ package scene
 
 import (
 	"github.com/mikee385/GolangRayTracer/color"
+	"github.com/mikee385/GolangRayTracer/geometry"
 )
 
 const Bias = 1.0E-9
@@ -47,6 +48,29 @@ func (scene Scene) AddObject(object SceneObject) {
 	})
 }
 
+func (scene Scene) Trace(ray geometry.Ray3D, depth int) TraceResult {
+	var pixelColor color.ColorRGB
+
+	if ray.Direction.X() > 0.0 {
+		if ray.Direction.Y() > 0.0 {
+			pixelColor = color.Red()
+		} else {
+			pixelColor = color.Green()
+		}
+	} else {
+		if ray.Direction.Y() > 0.0 {
+			pixelColor = color.Blue()
+		} else {
+			pixelColor = color.White()
+		}
+	}
+
+	return TraceResult{
+		Color:    pixelColor,
+		Distance: 0.0,
+	}
+}
+
 type internalObject struct {
 	index   int
 	object  SceneObject
@@ -56,4 +80,9 @@ type internalObject struct {
 type internalLight struct {
 	index int
 	light *SceneLight
+}
+
+type TraceResult struct {
+	Color    color.ColorRGB
+	Distance float32
 }
