@@ -1,8 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"github.com/mikee385/GolangRayTracer/color"
 	"github.com/mikee385/GolangRayTracer/geometry"
+	"github.com/mikee385/GolangRayTracer/image"
 	"github.com/mikee385/GolangRayTracer/material"
 	"github.com/mikee385/GolangRayTracer/scene"
 	"github.com/mikee385/GolangRayTracer/table"
@@ -232,9 +234,24 @@ func main() {
 		camera = scene.NewCamera_FromDimensions(imageWidth, imageHeight, 8.0, 6.0, 5.0, geometry.NewPoint(0.0, 0.0, -5.0), geometry.NewPoint(0.0, 0.0, 1.0))
 	}
 
-	var _ = render(&imageScene, &camera)
+	var pixelTable = render(&imageScene, &camera)
+	var image = image.NewPPMImage(fmt.Sprintf("example%v.ppm", EXAMPLE_TO_RUN))
+	var err = image.Save(pixelTable)
+	if err != nil {
+		panic(err)
+	}
 }
 
 func render(imageScene *scene.Scene, camera *scene.Camera) *table.Table {
-	return nil
+	var width = camera.ImageWidth()
+	var height = camera.ImageHeight()
+	var pixelTable = table.New(width, height)
+
+	for row := 0; row < height; row++ {
+		for column := 0; column < width; column++ {
+			pixelTable.Set(row, column, color.Green())
+		}
+	}
+
+	return &pixelTable
 }
