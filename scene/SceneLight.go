@@ -23,7 +23,7 @@ func (light SceneLight) Radius() float32 {
 }
 
 func (light SceneLight) Intersect(ray geometry.Ray3D) (float32, bool) {
-	return light.Intersect(ray)
+	return light.sphere.Intersect(ray)
 }
 
 func (light SceneLight) Normal(point geometry.Point3D) geometry.Direction3D {
