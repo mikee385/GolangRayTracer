@@ -11,7 +11,7 @@ import (
 	"math"
 )
 
-var EXAMPLE_TO_RUN = 1
+var EXAMPLE_TO_RUN = 3
 
 func main() {
 
