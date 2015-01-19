@@ -67,9 +67,13 @@ func (camera Camera) ImageHeight() int {
 }
 
 func (camera Camera) PrimaryRay(row int, column int) geometry.Ray3D {
-	var pointInCamera = camera.pixelCenter(row, column)
-	var rayDirection = geometry.NewDirection_BetweenPoints(camera.position, camera.convertCameraToWorld(pointInCamera))
-	return geometry.NewRay(camera.position, rayDirection)
+	var x = camera.xMin + camera.dx*(float32(column)+0.5)
+	var y = camera.yMax - camera.dy*(float32(row)+0.5)
+	var z = camera.distanceToPlane
+
+	var directionInCamera = geometry.NewVector(x, y, z)
+	var directionInWorld = directionInCamera.Rotate(camera.orientation).ToUnit()
+	return geometry.NewRay(camera.position, directionInWorld)
 }
 
 func (camera Camera) SubRays(row int, column int, rays *table.Table) {
@@ -91,23 +95,14 @@ func (camera Camera) SubRays(row int, column int, rays *table.Table) {
 
 	for row := 0; row < height; row++ {
 		for column := 0; column < width; column++ {
-			var pointInCamera = geometry.NewPoint(x0+float32(column)*xStep, y0-float32(row)*yStep, z0)
-			var rayDirection = geometry.NewDirection_BetweenPoints(camera.position, camera.convertCameraToWorld(pointInCamera))
-			rays.Set(row, column, geometry.NewRay(camera.position, rayDirection))
+			var x = x0 + float32(column)*xStep
+			var y = y0 - float32(row)*yStep
+
+			var directionInCamera = geometry.NewVector(x, y, z0)
+			var directionInWorld = directionInCamera.Rotate(camera.orientation).ToUnit()
+			rays.Set(row, column, geometry.NewRay(camera.position, directionInWorld))
 		}
 	}
-}
-
-func (camera Camera) pixelCenter(row int, column int) geometry.Point3D {
-	var x = camera.xMin + camera.dx*(float32(column)+0.5)
-	var y = camera.yMax - camera.dy*(float32(row)+0.5)
-	var z = camera.distanceToPlane
-
-	return geometry.NewPoint(x, y, z)
-}
-
-func (camera Camera) convertCameraToWorld(pointInCamera geometry.Point3D) geometry.Point3D {
-	return pointInCamera.Rotate(camera.orientation).Translate_Vec(geometry.NewVector_FromPoint(camera.position))
 }
 
 func computeOrientation(position geometry.Point3D, lookAtPoint geometry.Point3D) geometry.Matrix3D {

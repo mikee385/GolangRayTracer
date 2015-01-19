@@ -44,14 +44,6 @@ func (point Point3D) Translate_Vec(vector Vector3D) Point3D {
 	}
 }
 
-func (point Point3D) Rotate(matrix Matrix3D) Point3D {
-	return Point3D{
-		X: point.X*matrix.X.X + point.Y*matrix.Y.X + point.Z*matrix.Z.X,
-		Y: point.X*matrix.X.Y + point.Y*matrix.Y.Y + point.Z*matrix.Z.Y,
-		Z: point.X*matrix.X.Z + point.Y*matrix.Y.Z + point.Z*matrix.Z.Z,
-	}
-}
-
 func (point Point3D) Equals(other Point3D) bool {
 	return (point.X == other.X) &&
 		(point.Y == other.Y) &&
